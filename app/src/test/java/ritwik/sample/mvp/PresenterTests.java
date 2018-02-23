@@ -15,10 +15,10 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 public class PresenterTests {
-	LoginActivityMVP.Model mMockingModel;
-	LoginActivityMVP.View mMockingView;
-	LoginActivityPresenter mMockingPresenter;
-	User user;
+	private LoginActivityMVP.Model mMockingModel;
+	private LoginActivityMVP.View mMockingView;
+	private LoginActivityPresenter mMockingPresenter;
+	private User user;
 
 	@Before public void setup () {
 		mMockingModel = mock ( LoginActivityMVP.Model.class );
@@ -56,5 +56,29 @@ public class PresenterTests {
 		verify ( mMockingView, never () ).setFirstName ( "Black" );
 		verify ( mMockingView, never () ).setLastName ( "Panther" );
 		verify ( mMockingView, times ( 1 ) ).showUserNotAvailable ();
+	}
+
+	@Test public void shouldCreateErrorMessageIfFieldsAreEmpty () {
+		// Set-up View mock.
+		when ( mMockingView.getFirstName () ).thenReturn ( "" );
+
+		// Save the user.
+		mMockingPresenter.saveUser ();
+
+		// Verify View Interactions.
+		verify ( mMockingView, times ( 1 ) ).getFirstName ();
+		/*verify ( mMockingView, never () ).getLastName ();*/
+		verify ( mMockingView, times ( 1 ) ).showInputError ();
+
+		when ( mMockingView.getFirstName () ).thenReturn ( "Bruce" );
+		when ( mMockingView.getLastName () ).thenReturn ( "" );
+
+		// Save the user.
+		mMockingPresenter.saveUser ();
+
+		// Verify View Interactions.
+		verify ( mMockingView, times ( 2 ) ).getFirstName ();
+		verify ( mMockingView, times ( 2 ) ).getLastName ();
+		verify ( mMockingView, times ( 2 ) ).showInputError ();
 	}
 }
