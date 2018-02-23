@@ -81,4 +81,23 @@ public class PresenterTests {
 		verify ( mMockingView, times ( 2 ) ).getLastName ();
 		verify ( mMockingView, times ( 2 ) ).showInputError ();
 	}
+
+	@Test public void shouldBeAbleToSaveAValidUser () {
+		// Set-up View mock to return First Name and Last Name.
+		when ( mMockingView.getFirstName () ).thenReturn ( "Bruce" );
+		when ( mMockingView.getLastName () ).thenReturn ( "Wayne" );
+
+		// Save the User.
+		mMockingPresenter.saveUser ();
+
+		// Verify Call of First Name and Last Name to be once.
+		verify ( mMockingView, times ( 1 ) ).getFirstName ();
+		verify ( mMockingView, times ( 1 ) ).getLastName ();
+
+		// Make sure the repository saved the User.
+		verify ( mMockingModel, times ( 1 ) ).createUser ( "Bruce", "Wayne" );
+
+		// Make sure the View showed to the User about Saving of User.
+		verify ( mMockingView, times ( 1 ) ).showUserSavedMessage ();
+	}
 }
