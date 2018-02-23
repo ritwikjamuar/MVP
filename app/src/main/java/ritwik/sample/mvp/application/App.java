@@ -12,7 +12,7 @@ public class App extends Application {
 		initializeApplicationComponent ();
 	}
 
-	private void initializeApplicationComponent () {
+	@SuppressWarnings ( "deprecation" ) private void initializeApplicationComponent () {
 		mComponent =
 				DaggerApplicationComponent
 						.builder ()
