@@ -47,16 +47,7 @@ public class LoginActivity
 	@Override public String getLastName () { return mEtLastName.getText ().toString (); }
 	@Override public void setFirstName ( String firstName ) { mEtFirstName.setText ( firstName ); }
 	@Override public void setLastName ( String lastName ) { mEtLastName.setText ( lastName ); }
-
-	/*@Override public void showUserNotAvailable () {
-		ConstantMethods.showToastMessage ( LoginActivity.this, "User not available" );
-	}*/
-
-	@Override public void showInputError () {
-		ConstantMethods.showToastMessage ( LoginActivity.this, "Error in Input" );
-	}
-
-	@Override public void showUserSavedMessage () {
-		ConstantMethods.showToastMessage ( LoginActivity.this, "User Saved" );
-	}
+	@Override public void showInputError () { ConstantMethods.showToastMessage ( LoginActivity.this, "Error in Input" ); }
+	@Override public void showUserSavedMessage () { ConstantMethods.showToastMessage ( LoginActivity.this, "User Saved" ); }
+	@Override public void showUserNotAvailable () { ConstantMethods.showToastMessage ( LoginActivity.this, "User not Available" ); }
 }

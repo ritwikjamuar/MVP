@@ -38,9 +38,23 @@ public class PresenterTests {
 		when ( mMockingModel.getUser () ).thenReturn ( user );
 		mMockingPresenter.getCurrentUser ();
 
-		// Verify Model Interactions.
+		// Verify View Interactions.
 		verify ( mMockingView, times (1 ) ).setFirstName ( "Black" );
 		verify ( mMockingView, times ( 1 ) ).setLastName ( "Panther" );
 		verify ( mMockingView, never () ).showInputError ();
+	}
+
+	@Test public void shouldShowErrorMessageWhenUserIsNull () {
+		// Set-up Model mock.
+		when ( mMockingModel.getUser () ).thenReturn ( null );
+		mMockingPresenter.getCurrentUser ();
+
+		// Verify Model Interactions.
+		verify ( mMockingModel, times ( 1 ) ).getUser ();
+
+		// Verify View Interactions.
+		verify ( mMockingView, never () ).setFirstName ( "Black" );
+		verify ( mMockingView, never () ).setLastName ( "Panther" );
+		verify ( mMockingView, times ( 1 ) ).showUserNotAvailable ();
 	}
 }

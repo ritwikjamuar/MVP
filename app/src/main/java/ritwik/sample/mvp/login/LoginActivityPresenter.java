@@ -27,6 +27,8 @@ public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
 				view.setFirstName ( user.getFirstName () );
 				view.setLastName ( user.getLastName () );
 			}
+		} else {
+			if ( view != null ) view.showUserNotAvailable ();
 		}
 	}
 }
